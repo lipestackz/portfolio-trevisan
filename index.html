@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Felipe Trevisan &bull; Portfólio Jogável 3D &bull; Brazilian Underground</title>
+  <meta name="description" content="Portfólio interativo de Felipe Trevisan: Desenvolvedor Front-end, Three.js, Shaders e Web Audio API. Uma descida pelo underground brasileiro inspirada no hip-hop 90s, pichação, skate e estética PS2.">
+  <meta name="theme-color" content="#0c0d10">
+
+  <!-- Google Fonts: Bebas Neue (90s rap posters), Archivo, Pixelify Sans & Silkscreen -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;500;600;700;800;900&family=Pixelify+Sans:wght@700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fundo animado (canvas 2D de partículas em paralaxe de cinza asfalto e vapor de sódio) -->
+  <canvas id="fundo" aria-hidden="true"></canvas>
+
+  <!-- Peças e geometrias 3D (Three.js) flutuando ao fundo: Boombox 90s, Lata de Spray e Vinil -->
+  <canvas id="cena3d" aria-hidden="true"></canvas>
+
+  <!-- =========================================================================
+       HEADER / NAVBAR FIXA (ESTILO PS2 MEMORY CARD & FITA CASSETE)
+       ========================================================================= -->
+  <header class="nav" id="nav">
+    <a href="#topo" class="marca">FELIPE<i>.</i>TREVISAN <span class="marca-tag">[8MB &bull; SP 011]</span></a>
+    <nav class="nav-links" aria-label="Seções">
+      <a href="#perfil">01. Perfil</a>
+      <a href="#atuacao">02. Atuação</a>
+      <a href="#trajetoria">03. Trajetória</a>
+      <a href="#projetos">04. Projetos</a>
+      <a href="#web">05. Web</a>
+      <a href="#laboratorio">06. Lab 3D</a>
+      <a href="#codigo">07. Código</a>
+      <a href="#premios">08. Prêmios</a>
+      <a href="#batalhas">09. Batalhas</a>
+      <a href="#contato">10. Contato</a>
+    </nav>
+    <button class="nav-toggle" id="btnMenuMobile" type="button" aria-expanded="false" aria-controls="navGaveta" aria-label="Abrir menu de seções">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <button class="botao-pixel mini" type="button" data-acao="jogar"><span class="rotulo-jogar">▶ INICIAR DESCIDA</span></button>
+    <div class="progresso" id="progresso"></div>
+  </header>
+
+  <!-- Gaveta de navegação mobile acessível -->
+  <nav class="nav-gaveta" id="navGaveta" aria-label="Navegação mobile" hidden>
+    <ul class="nav-gaveta-links">
+      <li><a href="#perfil"><b>01</b> O MURAL</a></li>
+      <li><a href="#atuacao"><b>02</b> PORTAS DE AÇO</a></li>
+      <li><a href="#trajetoria"><b>03</b> ESCADARIA &amp; SKATE</a></li>
+      <li><a href="#projetos"><b>04</b> GALPÕES &amp; CRT</a></li>
+      <li><a href="#web"><b>05</b> MURO DE PICHAÇÃO</a></li>
+      <li><a href="#laboratorio"><b>06</b> OFICINA &amp; MPC</a></li>
+      <li><a href="#codigo"><b>07</b> PAINEL INDUSTRIAL</a></li>
+      <li><a href="#premios"><b>08</b> DISCOS DE OURO</a></li>
+      <li><a href="#batalhas"><b>09</b> SKATEPARK &amp; 808</a></li>
+      <li><a href="#contato"><b>10</b> TERMINAL FINAL</a></li>
+    </ul>
+  </nav>
+
+  <!-- =========================================================================
+       MUNDO / CORPO PRINCIPAL COM AS 10 FASES DA DESCIDA URBANA
+       ========================================================================= -->
+  <main id="mundo">
+
+    <!-- ===================== FASE 00 · O TOPO (TERRAÇO URBANO) ===================== -->
+    <section class="fase heroi" id="topo" data-fase="0" data-nome="Início">
+      
+      <!-- Detalhe Cenográfico Underground: Fios elétricos aéreos com tênis Nike pendurado -->
+      <div class="fios-cenario" aria-hidden="true">
+        <div class="fio-poste"></div>
+        <div class="tenis-pendurado">
+          <span class="fio-laco"></span>
+          <span class="tenis-icone">👟👟</span>
+          <span class="tenis-tag">NIKE TN &bull; VIBE SP</span>
+        </div>
+        <div class="tag-poste">PUMAPJL // SONOTWS // UNDERGROUND</div>
+      </div>
+
+      <div class="heroi-grade">
+        <div class="heroi-topo">
+          <div class="badge-underground">
+            <span class="badge-fase">[NÍVEL 00] O TOPO DA ESTRUTURA</span>
+            <span class="badge-cassete">SIDE A // 90s BOOM-BAP</span>
+          </div>
+          <h1 class="titulo" aria-label="Felipe Trevisan">
+            <span class="linha" data-plat data-pouso data-letras>FELIPE</span>
+            <span class="linha ciano" data-plat data-letras data-bits="5">TREVISAN</span>
+          </h1>
+        </div>
+        <div class="heroi-principal">
+          <div class="heroi-texto" data-plat>
+            <p class="cargo">Desenvolvedor Front-end &bull; Three.js, Shaders &amp; Web Audio &bull; Brazilian Streetwear &amp; 90s Game Aesthetics</p>
+            <p>Uma descida imersiva pelo universo underground paulistano. Desenvolvo interfaces brutas de alta fidelidade técnica, física de jogos e sintetizadores procedurais em JavaScript puro. Aperte <strong>Iniciar Descida</strong> para guiar o personagem de moletom oversized, calça baggy jeans e tênis Nike Air Max TN pelos níveis da cidade, ou role normalmente para ler.</p>
+          </div>
+          <div class="heroi-acoes">
+            <button class="botao-pixel" type="button" data-acao="jogar"><span class="rotulo-jogar">▶ INICIAR DESCIDA</span> <kbd>Enter</kbd></button>
+            <a class="botao-linha" href="#perfil">Explorar lendo ↓</a>
+          </div>
+          <ul class="controles" aria-label="Controles">
+            <li><kbd>←</kbd><kbd>→</kbd> corre pelo concreto</li>
+            <li><kbd>espaço</kbd> pula &bull; 2× salto duplo</li>
+            <li><kbd>↓</kbd> desce degrau &bull; no ar dá soco</li>
+          </ul>
+        </div>
+
+        <nav class="mapa cartao" data-plat data-bits="3" aria-label="Seções do portfólio">
+          <div class="fita-adesiva topo-dir"></div>
+          <p class="mapa-titulo">ESTAÇÕES DA DESCIDA [PS2]</p>
+          <ol>
+            <li><a href="#perfil"><b>01</b>O Mural / Perfil</a></li>
+            <li><a href="#atuacao"><b>02</b>Portas de Aço</a></li>
+            <li><a href="#trajetoria"><b>03</b>Escadaria &amp; Skate</a></li>
+            <li><a href="#projetos"><b>04</b>Galpões &amp; CRT</a></li>
+            <li><a href="#web"><b>05</b>Muro de Pichação</a></li>
+            <li><a href="#laboratorio"><b>06</b>Oficina &amp; MPC</a></li>
+            <li><a href="#codigo"><b>07</b>Painel Industrial</a></li>
+            <li><a href="#premios"><b>08</b>Discos de Ouro</a></li>
+            <li><a href="#batalhas"><b>09</b>Skatepark &amp; 808</a></li>
+            <li><a href="#contato"><b>10</b>Terminal Final</a></li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="heroi-rodape" data-plat data-bugs="1">
+        <span class="selo-origem">SÃO PAULO &bull; ZONA URBANA &bull; 2026</span>
+        <span>HTML5 &bull; CSS3 PURO &bull; JS ES6+ &bull; THREE.JS R128 &bull; SHADERS GLSL &bull; WEB AUDIO API</span>
+      </div>
+    </section>
+
+    <!-- ===================== FASE 01 · O MURAL (PERFIL) ===================== -->
+    <section class="fase esq" id="perfil" data-fase="1" data-nome="Perfil">
+      <span class="fase-num" aria-hidden="true">01</span>
+      <div class="perfil-grade">
+        <div class="col">
+          <p class="kicker">Nível 01 &bull; O Mural</p>
+          <h2 data-plat data-pouso data-letras>Sobre mim</h2>
+          <p class="lead" data-plat data-bits="4">Sou desenvolvedor front-end focado em criar soluções modernas, responsivas e de altíssimo impacto visual, unindo rigor técnico, performance a 60 FPS e identidade streetwear underground.</p>
+          <p data-plat data-bugs="1">Influenciado pela cultura de rua brasileira, pelo graffiti e pela pichação paulistana, pelas produções do SonoTWS, pela vivência streetwear de pumapjl e pelos clássicos jogos urbanos do PlayStation 2. Busco transformar cada linha de código em uma peça autêntica de arte digital interativa.</p>
+          <p data-plat>O protagonista que desce por este portfólio carrega minha identidade: homem branco, cabelo castanho cacheado com corte americano (low/mid fade), moletom oversized chumbo, calça baggy jeans e o lendário tênis <strong>Nike Air Max TN</strong> com bolhas de ar laranjas Tuned Air.</p>
+          <p data-plat data-bits="3">Sou analítico e gosto de problema difícil: computação gráfica, malhas 3D procedurais, deformações senoidais em tempo real, física de colisão com o DOM e sintetizadores de áudio sem dependências externas.</p>
+        </div>
+        <figure class="retrato cartao" data-plat data-bits="4" data-cafe>
+          <div class="fita-adesiva topo-esq"></div>
+          <div class="fita-adesiva topo-dir"></div>
+          <img src="assets/images/protagonist_streetwear.jpg" width="720" height="900" alt="Felipe Trevisan com moletom oversized, calça baggy e tênis Nike Air Max TN">
+          <figcaption><span>Felipe Trevisan</span><span>Front-end &bull; Three.js &bull; Street Culture</span></figcaption>
+        </figure>
+      <dl class="fatos">
+        <div class="fato cartao" data-plat><dt>Atuação</dt><dd>Desenvolvedor Front-end &amp; 3D Web</dd></div>
+        <div class="fato cartao" data-plat data-bits="2"><dt>Base</dt><dd>São Paulo, SP &bull; Brasil</dd></div>
+        <div class="fato cartao" data-plat data-bugs="1"><dt>Especialidade</dt><dd>Three.js, WebGL &amp; Canvas 2D</dd></div>
+        <div class="fato cartao" data-plat data-bits="2"><dt>Estética</dt><dd>Moletom Oversized &amp; Nike TN</dd></div>
+        <div class="fato cartao" data-plat data-skill="PuroJS"><dt>Filosofia</dt><dd>Código Puro &bull; Zero Dependências</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== FASE 02 · PORTAS DE AÇO (ATUAÇÃO) ===================== -->
+    <section class="fase dir faixa" id="atuacao" data-fase="2" data-nome="Atuação">
+      <span class="fase-num" aria-hidden="true">02</span>
+      <div class="col">
+        <p class="kicker">Nível 02 &bull; Portas de Aço &amp; Amplificadores</p>
+        <h2 data-plat data-pouso data-letras>O Que Eu Faço</h2>
+        <p data-plat data-bits="4">Atuo na intersecção entre engenharia de software de ponta, design interativo experimental e cultura de rua. Cada projeto nasce com identidade única, arquitetura sem frameworks pesados e fluidez absoluta a 60 FPS.</p>
+      </div>
+
+      <div class="frentes">
+        <article class="frente cartao" data-plat data-skill="Three.js" data-sx="0.3">
+          <div class="fita-adesiva topo-esq"></div>
+          <span class="frente-n">A</span>
+          <h3>Three.js, WebGL &amp; Shaders GLSL</h3>
+          <p>Modelagem procedural em tempo real, shaders customizados de vértice e fragmento, materiais PBR, deformação senoidal e mapas espaciais interativos com raycasting e física de partículas.</p>
+        </article>
+        <article class="frente cartao" data-plat data-skill="Audio" data-sx="0.75" data-bugs="1">
+          <div class="fita-adesiva topo-dir"></div>
+          <span class="frente-n">B</span>
+          <h3>Web Audio API &amp; 90s Boom-Bap / 808</h3>
+          <p>Síntese sonora algorítmica direto no navegador sem arquivos de áudio externos: osciladores, filtros de ruído branco, envelopes ADSR, subgraves 808 e batidas no espírito do hip-hop analógico.</p>
+        </article>
+        <article class="frente cartao" data-plat data-skill="Game" data-sx="0.7" data-bits="3" data-bx="0.3">
+          <div class="fita-adesiva topo-esq"></div>
+          <span class="frente-n">C</span>
+          <h3>Game Design 2.5D &amp; Física no DOM</h3>
+          <p>Motor de colisão AABB sólida mapeado diretamente sobre os cartões e títulos da árvore DOM real. Gravidade calibrada, duplo salto, soco no solo com ondas de choque físicas e controles adaptativos.</p>
+        </article>
+      </div>
+
+      <div class="ferramentas cartao" data-plat data-skill="VanillaJS" data-sx="0.12" data-bugs="1">
+        <div class="tag-stencil">[ARSENAL TÉCNICO]</div>
+        <p>No corre diário utilizo <b>JavaScript ES6+ Puro</b>, <b>HTML5 Semântico</b>, <b>CSS3 Experimental</b>, <b>Three.js r128</b>, <b>Canvas API 2D</b> e <b>Web Audio API</b>. Versionamento via <b>Git/GitHub</b>, auditoria <b>Lighthouse (Nota 100)</b> e acessibilidade internacional <b>WCAG 2.1 AA</b>.</p>
+      </div>
+    </section>
+
+    <!-- ===================== FASE 03 · ESCADARIA & CORRIMÃO (TRAJETÓRIA) ===================== -->
+    <section class="fase esq" id="trajetoria" data-fase="3" data-nome="Trajetória">
+      <span class="fase-num" aria-hidden="true">03</span>
+      <div class="col">
+        <p class="kicker">Nível 03 &bull; Escadarias de Concreto &amp; Skate Spot</p>
+        <h2 data-plat data-pouso data-letras>A Caminhada &bull; Evolução</h2>
+        <p data-plat>A trajetória de disciplina, estudo contínuo e evolução nas ruas digitais: de entusiasta de código limpo a desenvolvedor de experiências imersivas autênticas.</p>
+      </div>
+
+      <ol class="escada">
+        <li class="degrau cartao" data-plat data-bits="4">
+          <div class="fita-adesiva topo-dir"></div>
+          <span class="ano">2022</span>
+          <h3>Fundamentos &amp; Algoritmos</h3>
+          <p>Início dos estudos aprofundados em estruturas de dados, lógica computacional, JavaScript moderno e semântica web pura.</p>
+        </li>
+        <li class="degrau cartao" data-plat data-bits="4" data-glitch="1">
+          <div class="fita-adesiva topo-esq"></div>
+          <span class="ano">2023 a 2024</span>
+          <h3>Front-end &amp; Design Systems</h3>
+          <p>Desenvolvimento de interfaces completas, design tokens, tipografia brutalista inspirada em zines e animações via CSS sem dependências infladas.</p>
+        </li>
+        <li class="degrau cartao" data-plat data-bits="4" data-bugs="1">
+          <div class="fita-adesiva topo-dir"></div>
+          <span class="ano">2025</span>
+          <h3>Computação Gráfica &amp; Shaders</h3>
+          <p>Imersão profunda em Three.js, WebGL, shaders GLSL, síntese sonora com Web Audio API nativa e otimização para 60 FPS consistentes.</p>
+        </li>
+        <li class="degrau cartao atual" data-plat data-bits="5" data-cafe>
+          <div class="tag-stencil">[CORRENTE]</div>
+          <span class="ano">2026 até hoje</span>
+          <h3>Portfólio Gamificado &amp; Street Culture</h3>
+          <p>Criação de ecossistemas web jogáveis integrados com a árvore DOM, física realista, trilha sonora procedural e estética underground brasileira.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===================== FASE 04 · GALPÕES & MONITORES CRT (PROJETOS) ===================== -->
+    <section class="fase dir faixa" id="projetos" data-fase="4" data-nome="Projetos">
+      <span class="fase-num" aria-hidden="true">04</span>
+      <div class="col">
+        <p class="kicker">Nível 04 &bull; Galpões &amp; Monitores CRT</p>
+        <h2 data-plat data-pouso data-letras>Sistemas em Produção</h2>
+        <p data-plat data-bits="4">Obras interativas desenvolvidas combinando rigor matemático, fidelidade gráfica, áudio responsivo e design responsivo.</p>
+      </div>
+
+      <!-- Obra 1 -->
+      <article class="obra">
+        <div class="obra-media cartao" data-plat data-bugs="2" data-skill="ThreeJS" data-sx="0.85">
+          <div class="moldura-crt">
+            <span class="crt-tag">INPUT: VIDEO 1 &bull; 60Hz</span>
+            <img src="assets/images/project_overworld.jpg" width="1280" height="720" alt="Interface 3D do SonicScape Audio Visualizer" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="obra-texto" data-plat data-bits="3">
+          <p class="destaque">Destaque de Engenharia Gráfica e Som</p>
+          <h3>SonicScape &bull; 3D Audio Visualizer</h3>
+          <p>Aplicação interativa inspirada no Overworld Audio com nós clicáveis em mapa tridimensional isométrico, equalizador com malhas procedurais e sintetizador de ondas senoidais em tempo real.</p>
+          <p>Trabalhei no motor de áudio via Web Audio API, nas sombras e luzes volumétricas via Three.js e na sincronia entre os transientes de áudio e a deformação dos blocos na tela a 60 FPS.</p>
+          <p class="usa">Three.js &bull; WebGL &bull; Web Audio API &bull; Canvas 2D &bull; JS Puro</p>
+        </div>
+      </article>
+
+      <!-- Obra 2 -->
+      <article class="obra inversa">
+        <div class="obra-media cartao" data-plat data-bits="4">
+          <div class="moldura-crt">
+            <span class="crt-tag">INPUT: RGB &bull; EDITORIAL</span>
+            <img src="assets/images/project_editorial.jpg" width="1280" height="720" alt="Revista digital Interface Magazine com tipografia editorial" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="obra-texto" data-plat data-skill="CSS Grid" data-sx="0.8" data-bugs="1">
+          <p class="destaque">Design Vanguardista &bull; WCAG AA</p>
+          <h3>Interface &bull; Digital Magazine</h3>
+          <p>Publicação digital inspirada nos estúdios Format e Fromanother, com revelações cinematográficas ao scroll, tipografia brutalista refinada e acessibilidade completa com suporte a leitores de tela.</p>
+          <p>Foquei na fluidez dos layouts em CSS Grid, controle de contraste visual e na navegação por teclado sem travas.</p>
+          <p class="usa">HTML5 Semântico &bull; CSS Grid &bull; IntersectionObserver &bull; WCAG AA</p>
+        </div>
+      </article>
+
+      <!-- Obra 3 -->
+      <article class="obra">
+        <div class="obra-media cartao" data-plat data-skill="Canvas" data-sx="0.2" data-glitch="1">
+          <div class="moldura-crt">
+            <span class="crt-tag">INPUT: CANVAS 2D &bull; REALTIME</span>
+            <img src="assets/images/project_fintech.jpg" width="1280" height="720" alt="Dashboard analítico Quantum Finance com gráficos neon em canvas" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="obra-texto" data-plat data-cafe data-bits="3">
+          <p class="destaque">Alta Performance Gráfica</p>
+          <h3>Quantum Finance &bull; Real-Time Hub</h3>
+          <p>Dashboard analítico financeiro com renderização contínua de cotações em Canvas 2D de alta taxa de quadros, interface dark mode com amarelo latão e verde neon, filtros avançados e feedback tátil em tempo real.</p>
+          <p class="usa">Canvas API 2D &bull; JavaScript Puro &bull; CSS Modular &bull; Dark Mode</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===================== FASE 05 · MURO DE PICHAÇÃO (WEB) ===================== -->
+    <section class="fase esq" id="web" data-fase="5" data-nome="Web">
+      <span class="fase-num" aria-hidden="true">05</span>
+      <div class="web-grade">
+        <div class="col">
+          <p class="kicker">Nível 05 &bull; Muro de Pichação &amp; Lambe-Lambes</p>
+          <h2 data-plat data-pouso data-letras>Aplicações Web no Ar</h2>
+          <p data-plat data-bits="4">Desenvolvo plataformas web com foco em código limpo, experiência do usuário e partes em <strong>Three.js</strong> para criar momentos visuais inesquecíveis.</p>
+          <p data-plat>Tomo cuidado rigoroso para que tudo funcione perfeitamente tanto num smartphone básico quanto num monitor 4K de alta taxa de atualização.</p>
+          <ul class="lista">
+            <li data-plat data-skill="BufferGeometry" data-sx="0.72"><b>Geometria e materiais</b> BufferGeometry, malhas instanciadas e materiais PBR</li>
+            <li data-plat data-bugs="1"><b>Shaders GLSL</b> Vértice e fragmento para deformações senoidais e transições</li>
+            <li data-plat><b>Movimento</b> Animação em tempo real, interpolação lerp e paralaxe com física</li>
+            <li data-plat data-bits="3"><b>Performance</b> Detecção de taxa de quadros e desativação em background</li>
+          </ul>
+        </div>
+
+        <div class="sites">
+          <a class="site cartao" data-plat data-bits="3" href="https://github.com/lipestackz" target="_blank" rel="noopener">
+            <div class="fita-adesiva topo-dir"></div>
+            <span class="nome">SonicScape Audio</span>
+            <span class="sobre">Visualizador espacial de áudio com sintetizador senoidal e mapa 3D</span>
+            <span class="end">github.com/lipestackz →</span>
+          </a>
+          <a class="site cartao" data-plat data-glitch="1" href="https://github.com/lipestackz" target="_blank" rel="noopener">
+            <div class="fita-adesiva topo-esq"></div>
+            <span class="nome">Interface Magazine</span>
+            <span class="sobre">Editorial digital com revelações cinematográficas e tipografia brutalista</span>
+            <span class="end">github.com/lipestackz →</span>
+          </a>
+          <a class="site cartao" data-plat data-bugs="1" data-bits="2" href="https://github.com/lipestackz" target="_blank" rel="noopener">
+            <div class="fita-adesiva topo-dir"></div>
+            <span class="nome">Quantum Finance</span>
+            <span class="sobre">Dashboard de cotações em tempo real renderizado em Canvas de alto contraste</span>
+            <span class="end">github.com/lipestackz →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FASE 06 · OFICINA & MPC (LABORATÓRIO 3D) ===================== -->
+    <section class="fase dir faixa" id="laboratorio" data-fase="6" data-nome="Laboratório">
+      <span class="fase-num" aria-hidden="true">06</span>
+      <div class="col">
+        <p class="kicker">Nível 06 &bull; Oficina Subterrânea &amp; MPC 2000</p>
+        <h2 data-plat data-pouso data-letras>Laboratório 3D &bull; Shaders</h2>
+        <p class="lead" data-plat data-bits="4">Espaço experimental para teste de geometrias paramétricas, deformação senoidal em tempo real, latas de spray e síntese sonora pura.</p>
+      </div>
+
+      <div class="puppet-grade">
+        <div class="galeria">
+          <div class="media larga cartao" data-plat data-skill="Shaders" data-sx="0.5" data-bugs="1">
+            <div class="tag-stencil">[MURO SP // GRAFFITI]</div>
+            <img src="assets/images/pichacao_wall_sp.jpg" width="1280" height="720" alt="Muro paulistano com pichação autêntica e lambe-lambes de rap" loading="lazy" decoding="async">
+          </div>
+          <div class="media cartao" data-plat data-bits="3">
+            <div class="fita-adesiva topo-dir"></div>
+            <img src="assets/images/skate_spot_rooftop.jpg" width="720" height="900" alt="Spot de skate urbano com escadaria de concreto e tênis no fio" loading="lazy" decoding="async">
+          </div>
+          <div class="media cartao" data-plat data-glitch="1">
+            <div class="fita-adesiva topo-esq"></div>
+            <img src="assets/images/project_overworld.jpg" width="1280" height="720" alt="Experimento espacial com Three.js" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="puppet-texto">
+          <p data-plat>Utilizo <strong>Three.js r128</strong>, <strong>Shaders GLSL</strong> e a <strong>Web Audio API</strong> para criar experiências sensoriais que respondem ao clique, ao impacto dos saltos e às batidas de trap 808.</p>
+          <p data-plat data-bits="3">O objetivo do laboratório é explorar novas linguagens visuais para a web, desafiando a mesmice dos templates corporativos com código autoral de alto impacto visual e identidade underground.</p>
+          <dl class="specs">
+            <div data-plat><dt>Renderizador</dt><dd>WebGL / Three.js r128</dd></div>
+            <div data-plat data-bugs="1"><dt>Animação</dt><dd>Deformação senoidal GLSL</dd></div>
+            <div data-plat><dt>Áudio</dt><dd>Web Audio API Procedural</dd></div>
+            <div data-plat data-bits="3"><dt>Física</dt><dd>Colisões AABB dinâmicas no DOM</dd></div>
+            <div data-plat><dt>Performance</dt><dd>60 FPS &bull; Monitor de Quadros</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FASE 07 · PAINEL INDUSTRIAL (CÓDIGO & DOM) ===================== -->
+    <section class="fase esq" id="codigo" data-fase="7" data-nome="Código">
+      <span class="fase-num" aria-hidden="true">07</span>
+      <div class="col">
+        <p class="kicker">Nível 07 &bull; Painel Elétrico Industrial</p>
+        <h2 data-plat data-pouso data-letras>Física de Colisão no DOM</h2>
+        <p class="lead" data-plat data-bits="4">O motor de física lê as caixas delimitadoras reais de cada elemento na árvore DOM e gera superfícies sólidas para o personagem andar, pular e descer.</p>
+        <p data-plat data-bugs="1">A rolagem do navegador é sincronizada diretamente com o protagonista: quando ele salta pelos buracos de concreto, a câmera do viewport desce de forma suave via interpolação senoidal.</p>
+      </div>
+
+<pre class="codigo cartao" data-plat data-skill="JS" data-sx="0.88" data-glitch="2" data-bugs="1"><code><span class="c">/* [SP-011] varre os elementos marcados no HTML e calcula as caixas sólidas */</span>
+<span class="k">function</span> posicionarNoDocumento(elemento) {
+    <span class="k">let</span> x = <span class="s">0</span>, y = <span class="s">0</span>, no = elemento;
+    <span class="k">while</span> (no) {
+        x += no.offsetLeft;
+        y += no.offsetTop;
+        <span class="k">let</span> pai = no.offsetParent;
+        <span class="k">if</span> (pai) { x += pai.clientLeft; y += pai.clientTop; }
+        no = pai;
+    }
+    <span class="k">return</span> { x: x, y: y, largura: elemento.offsetWidth };
+}
+
+<span class="c">/* calcula gravidade e impacto do Nike Air Max TN no concreto */</span>
+<span class="k">if</span> (jogador.vy &gt; <span class="s">0</span> &amp;&amp; pesAnteriores &lt;= plat.y &amp;&amp; pesAtuais &gt;= plat.y) {
+    jogador.y = plat.y - jogador.altura;
+    jogador.vy = <span class="s">0</span>;
+    som.tocar(<span class="s">"pouso"</span>);
+    efeitos3d.pouso(plat.elemento, fracX, impacto);
+}</code></pre>
+
+      <ul class="pontos">
+        <li data-plat>Leitura de coordenadas absolutas via offsetParents sem recalcular reflow excessivo</li>
+        <li data-plat data-bits="3">Interpolação de amortecimento (lerp) na câmera e na velocidade horizontal</li>
+        <li data-plat>Detecção de colisão AABB precisa com tolerância para saltos no limite (coyote time)</li>
+        <li data-plat data-bits="3">Letras de títulos quebradas em spans individuais que afundam sob os passos</li>
+        <li data-plat>Compatibilidade total com telas de toque, teclados físicos e leitores de tela</li>
+      </ul>
+    </section>
+
+    <!-- ===================== FASE 08 · DISCOS DE OURO (PRÊMIOS) ===================== -->
+    <section class="fase dir faixa" id="premios" data-fase="8" data-nome="Prêmios">
+      <span class="fase-num" aria-hidden="true">08</span>
+      <div class="col">
+        <p class="kicker">Nível 08 &bull; Discos de Ouro &amp; Hall Underground</p>
+        <h2 data-plat data-pouso data-letras>Reconhecimento &bull; Conquistas</h2>
+        <p data-plat data-bits="4">Padrões de excelência técnica alcançados com dedicação, consistência e disciplina na criação de software e experiências 3D.</p>
+      </div>
+
+      <div class="premios">
+        <article class="premio cartao" data-plat data-trofeu="Lighthouse 100">
+          <div class="fita-adesiva topo-esq"></div>
+          <h3>Lighthouse Nota 100</h3>
+          <p>Auditorias com nota máxima em Performance, Acessibilidade WCAG, Melhores Práticas e SEO em aplicações front-end web.</p>
+          <p class="equipe">Google Lighthouse &bull; Padrões Globais</p>
+        </article>
+        <article class="premio cartao" data-plat data-trofeu="Three.js Master" data-bugs="1">
+          <div class="fita-adesiva topo-dir"></div>
+          <h3>Domínio em Three.js &amp; WebGL</h3>
+          <p>Criação de universos 3D com texturas procedurais, shaders GLSL e gerenciamento otimizado de GPU a 60 FPS.</p>
+          <p class="equipe">WebGL &bull; Shaders &bull; Math</p>
+        </article>
+        <article class="premio cartao" data-plat data-trofeu="Engenharia de Som">
+          <div class="fita-adesiva topo-esq"></div>
+          <h3>Engenharia de Áudio Web</h3>
+          <p>Síntese de instrumentos e efeitos sonoros via Web Audio API pura, sem carregar arquivos pesados de MP3 ou WAV.</p>
+          <p class="equipe">Web Audio API &bull; Trap 808</p>
+        </article>
+      </div>
+
+      <blockquote class="citacao" data-plat data-bugs="1" data-cafe>
+        <p>Desenvolver na web não é apenas encaixar blocos prontos. É dominar os fundamentos da linguagem, respeitar a performance do aparelho de quem acessa e transformar código em arte que impacta quem usa.</p>
+        <footer>Manifesto de Engenharia &amp; Design Front-end</footer>
+      </blockquote>
+
+      <figure class="premio-foto cartao" data-plat data-bits="5">
+        <img src="assets/images/urban_street_graffiti_wall.jpg" width="1600" height="900" alt="Mural de graffiti urbano representando a cultura de rua" loading="lazy" decoding="async">
+      </figure>
+    </section>
+
+    <!-- ===================== FASE 09 · SKATEPARK & BATALHA (BATALHAS) ===================== -->
+    <section class="fase esq" id="batalhas" data-fase="9" data-nome="Batalhas">
+      <span class="fase-num" aria-hidden="true">09</span>
+      <div class="col">
+        <p class="kicker">Nível 09 &bull; Skatepark &amp; Batalha de Rimas</p>
+        <h2 data-plat data-pouso data-letras>Desafios &amp; Hackathons</h2>
+        <p data-plat data-bits="4">Experiências práticas construindo soluções completas sob pressão de tempo e entrega de alta fidelidade técnica.</p>
+      </div>
+
+      <div class="competicoes">
+        <article class="competicao cartao" data-plat data-trofeu="Desafio Frontend" data-bugs="1">
+          <div class="fita-adesiva topo-dir"></div>
+          <p class="destaque">Arquitetura de Alta Performance</p>
+          <h3>Jogo de Plataforma 2.5D no DOM</h3>
+          <p>Construção de uma experiência web jogável onde cada card e título do portfólio se torna uma plataforma sólida com física realista, gravidade calibrada, pulso de soco no ar e câmera lerp.</p>
+          <div class="fluxos">
+            <p class="fluxo-rotulo">Física</p>
+            <ol class="fluxo" aria-label="Fluxo da física">
+              <li><span>Varredura DOM</span></li>
+              <li><span>Colisão AABB</span></li>
+              <li><span>Pulo Duplo</span></li>
+              <li><span>Soco Solo</span></li>
+            </ol>
+            <p class="fluxo-rotulo">Render</p>
+            <ol class="fluxo" aria-label="Fluxo de renderização">
+              <li><span>Canvas 2D</span></li>
+              <li><span>Pixel Art</span></li>
+              <li><span>Three.js 3D</span></li>
+              <li><span>60 FPS</span></li>
+            </ol>
+          </div>
+          <p>O protagonista conta com animações completas de respiração, corrida, piscar de olhos, salto duplo, rastro de poeira e impacto no chão com ondas de choque nas caixas vizinhas.</p>
+          <p class="usa">Canvas 2D &bull; JavaScript Puro &bull; Three.js &bull; CSS Experimental</p>
+        </article>
+
+        <article class="competicao cartao" data-plat data-skill="AudioTrap" data-sx="0.8" data-glitch="2" data-bits="3" data-bx="0.3">
+          <div class="fita-adesiva topo-esq"></div>
+          <p class="destaque">Síntese Sonora Procedural</p>
+          <h3>Beat Machine Trap 808 Nativa</h3>
+          <p>Sequenciador polifônico de 32 passos construído em Web Audio API nativa com kick encorpado, subgrave 808 senoidal, caixas cortantes e chimbal com rolls sincopados.</p>
+          <ul class="decisoes" aria-label="Estados da batida">
+            <li class="ok">808 Sub-bass</li>
+            <li class="dois">Hi-hat Rolls</li>
+            <li class="nao">Kick Punch</li>
+          </ul>
+          <p>O som reage diretamente à interação do usuário: pulos geram bipes em escala harmônica, quedas ativam transientes de ruído branco e a coleta de bits toca arpejos melódicos.</p>
+          <p class="usa">Web Audio API &bull; Osciladores &bull; Filtros Biquad &bull; Síntese Sonora</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== FASE 10 · TERMINAL FINAL (CONTATO) ===================== -->
+    <section class="fase dir final" id="contato" data-fase="10" data-nome="Contato">
+      <span class="fase-num" aria-hidden="true">10</span>
+      <div class="col">
+        <p class="kicker">Nível 10 &bull; Terminal da Estação &bull; Ponto Final</p>
+        <h2 class="grande" data-plat data-pouso data-letras>Vamos Conversar</h2>
+        <p class="lead" data-plat data-bits="5">Quer falar sobre projetos desafiadores, oportunidades front-end ou trocar uma ideia sobre Three.js, WebGL e cultura urbana underground? Me chama pelos canais abaixo.</p>
+      </div>
+
+      <div class="canais">
+        <a class="canal cartao" data-plat data-bits="3" href="mailto:trevisanritafelipe@gmail.com">
+          <div class="fita-adesiva topo-dir"></div>
+          <span><span class="qual">E-mail Direto</span><span class="valor">trevisanritafelipe@gmail.com</span></span>
+          <span class="seta">→</span>
+        </a>
+        <a class="canal cartao" data-plat href="https://github.com/lipestackz" target="_blank" rel="noopener">
+          <div class="fita-adesiva topo-esq"></div>
+          <span><span class="qual">GitHub Repositórios</span><span class="valor">github.com/lipestackz</span></span>
+          <span class="seta">→</span>
+        </a>
+        <a class="canal cartao" data-plat href="https://www.linkedin.com/in/felipe-trevisan-72649a34b/" target="_blank" rel="noopener">
+          <div class="fita-adesiva topo-dir"></div>
+          <span><span class="qual">LinkedIn Profissional</span><span class="valor">linkedin.com/in/felipetrevisan</span></span>
+          <span class="seta">→</span>
+        </a>
+      </div>
+
+      <!-- Formulário de Contato com Validação em Tempo Real e Estilo Cabine Urbana -->
+      <form class="contato-form cartao" id="formContato" data-plat novalidate>
+        <div class="tag-stencil">[INTERFONE URBANO // MENSAGEM DIRETA]</div>
+        <h3 class="form-titulo">Enviar Mensagem</h3>
+        <p class="form-desc">Preencha os campos abaixo para conversar sobre propostas, oportunidades ou novos projetos:</p>
+
+        <div class="campo">
+          <label for="contatoNome">Nome completo <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="contatoNome" name="nome" placeholder="Seu nome ou empresa" required autocomplete="name" aria-describedby="erroNome">
+          <span class="erro" id="erroNome" aria-live="polite"></span>
+        </div>
+
+        <div class="campo">
+          <label for="contatoEmail">E-mail para contato <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="email" id="contatoEmail" name="email" placeholder="seuemail@exemplo.com" required autocomplete="email" aria-describedby="erroEmail">
+          <span class="erro" id="erroEmail" aria-live="polite"></span>
+        </div>
+
+        <div class="campo">
+          <label for="contatoMensagem">Mensagem / Proposta <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <textarea id="contatoMensagem" name="mensagem" rows="4" placeholder="Conte mais sobre o projeto, desafio ou oportunidade..." required aria-describedby="erroMensagem"></textarea>
+          <span class="erro" id="erroMensagem" aria-live="polite"></span>
+        </div>
+
+        <div class="form-acoes">
+          <button type="submit" class="botao-pixel" id="btnEnviarContato">
+            <span class="rotulo-enviar">✉ TRANSMITIR MENSAGEM</span>
+          </button>
+          <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <span>Felipe Trevisan</span>
+    <span>Desenvolvedor Front-end &bull; Three.js &bull; São Paulo, Brasil</span>
+    <span>Feito com HTML, CSS e JavaScript em 2026</span>
+  </footer>
+
+  <!-- Camada do jogo (canvas 2D sobreposto à página) -->
+  <canvas id="jogo" aria-hidden="true"></canvas>
+
+  <!-- HUD de áudio e pausa -->
+  <div class="hud-botoes" id="hudBotoes">
+    <button type="button" id="btnSom" aria-label="Som ligado" title="Som (M)">♪</button>
+    <button type="button" id="btnPausa" aria-label="Pausar" title="Pausar (P)">II</button>
+  </div>
+
+  <!-- Controles touch para dispositivos móveis -->
+  <div class="toque" id="toque" aria-hidden="true">
+    <div class="toque-lado">
+      <button type="button" data-tecla="esq" aria-label="Mover para esquerda">◀</button>
+      <button type="button" data-tecla="dir" aria-label="Mover para direita">▶</button>
+    </div>
+    <div class="toque-lado">
+      <button type="button" data-tecla="baixo" aria-label="Descer plataforma ou soco para baixo">▼</button>
+      <button type="button" data-tecla="pulo" class="grande" aria-label="Pular ou pulo duplo">▲</button>
+    </div>
+  </div>
+
+  <!-- Modal / Diálogo do Jogo e Pausa -->
+  <div class="painel" id="painel" role="dialog" aria-modal="true" aria-labelledby="painelTitulo" hidden>
+    <div class="painel-caixa" id="painelCaixa">
+      <h2 id="painelTitulo" class="sr-only">Painel de Jogo</h2>
+    </div>
+  </div>
+
+  <!-- Avisos flutuantes para o usuário -->
+  <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+  <!-- Scripts locais: Three.js r128 e Motor Unificado script.js -->
+  <script src="assets/three.min.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
